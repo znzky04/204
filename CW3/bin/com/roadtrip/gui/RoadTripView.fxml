@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.roadtrip.gui.RoadTripController">
+   <top>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Label text="USA Road Trip Planner" textFill="#2e5cb8">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Separator />
+            <HBox spacing="10.0">
+               <children>
+                  <Label text="起点城市:" />
+                  <ComboBox fx:id="startingCityComboBox" prefWidth="200.0" promptText="选择起点城市" />
+                  <Label text="终点城市:" />
+                  <ComboBox fx:id="destinationCityComboBox" prefWidth="200.0" promptText="选择终点城市" />
+                  <Button fx:id="swapCitiesButton" mnemonicParsing="false" text="交换">
+                     <tooltip>
+                        <Tooltip text="交换起点和终点" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefHeight="600.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+         </padding>
+         <children>
+            <TitledPane animated="false" text="景点选择">
+               <content>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="搜索景点:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="attractionSearchField" promptText="输入景点名称..." />
+                        <HBox spacing="5.0">
+                           <children>
+                              <ComboBox fx:id="attractionComboBox" prefWidth="170.0" promptText="选择景点" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="addAttractionButton" mnemonicParsing="false" text="添加" />
+                           </children>
+                        </HBox>
+                        <Label text="已选景点:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="selectedAttractionsListView" prefHeight="150.0" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="removeAttractionButton" mnemonicParsing="false" prefWidth="230.0" text="移除选中的景点" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TitledPane>
+            <TitledPane animated="false" expanded="false" text="显示选项">
+               <content>
+                  <VBox spacing="5.0">
+                     <children>
+                        <CheckBox fx:id="showDistanceCheckBox" mnemonicParsing="false" selected="true" text="显示距离标签" />
+                        <CheckBox fx:id="showCityNamesCheckBox" mnemonicParsing="false" selected="true" text="显示城市名称" />
+                        <Separator />
+                        <Label text="路线颜色:" />
+                        <ColorPicker fx:id="routeColorPicker" />
+                        <Label text="背景颜色:" />
+                        <ColorPicker fx:id="backgroundColorPicker" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="路线详情" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="路线信息:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="routeDetailsListView" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <Button fx:id="planRouteButton" defaultButton="true" mnemonicParsing="false" prefWidth="230.0" style="-fx-background-color: #4CAF50;" text="规划路线" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="exportRouteButton" mnemonicParsing="false" prefWidth="230.0" text="导出路线" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox spacing="5.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="totalDistanceLabel" text="总距离: 0 miles">
+               <VBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <StackPane VBox.vgrow="ALWAYS">
+               <children>
+                  <Canvas fx:id="mapCanvas" height="600.0" width="730.0" StackPane.alignment="CENTER" />
+                  <Canvas fx:id="overlayCanvas" height="600.0" opacity="0.7" width="730.0" StackPane.alignment="CENTER" />
+                  <Label fx:id="mapStatusLabel" text="请选择起点和终点城市" textFill="#464646" StackPane.alignment="BOTTOM_LEFT">
+                     <StackPane.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="状态:" />
+            <Label fx:id="statusLabel" text="就绪" />
+            <Region HBox.hgrow="ALWAYS" />
+            <ProgressBar fx:id="progressBar" progress="0.0" visible="false" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane> 

@@ -1,0 +1,42 @@
+/* 
+ * 如何解决IDE中的JavaFX错误
+ * =========================
+ * 
+ * 1. 已经解决错误的方法：
+ *    - 运行run_fx.bat：编译和运行已成功，说明JavaFX库设置正确
+ *    - 创建了.classpath和.vscode/settings.json来帮助IDE识别JavaFX库
+ * 
+ * 2. 如果IDE仍然显示错误：
+ *    - 这些通常是IDE的错误标记，不影响程序的实际运行
+ *    - 关闭并重新打开IDE可能会解决问题
+ * 
+ * 3. 永久解决方案（基于你的IDE）：
+ * 
+ *    对于Eclipse:
+ *    ------------
+ *    - 右键项目 > Properties > Java Build Path > Libraries
+ *    - 点击"Add External JARs..."
+ *    - 导航到C:\javafx\openjfx-24.0.1_windows-x64_bin-sdk\javafx-sdk-24.0.1\lib
+ *    - 选择所有JAR文件 > 点击"Open"
+ *    - 应用并关闭
+ * 
+ *    对于IntelliJ IDEA:
+ *    -----------------
+ *    - File > Project Structure > Libraries
+ *    - 点击"+"按钮 > Java
+ *    - 导航到C:\javafx\openjfx-24.0.1_windows-x64_bin-sdk\javafx-sdk-24.0.1\lib
+ *    - 选择lib目录 > 点击"OK"
+ *    - 应用并关闭
+ *    - 然后编辑运行配置，在VM options中添加:
+ *      --module-path "C:\javafx\openjfx-24.0.1_windows-x64_bin-sdk\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics
+ * 
+ *    对于VS Code:
+ *    -----------
+ *    - 已经创建了.vscode/settings.json和.vscode/launch.json配置文件
+ *    - 重新打开VS Code应该能识别配置
+ *    - 如果没有，按F1打开命令面板，输入"Java: Clean Java Language Server Workspace"，然后重新加载窗口
+ * 
+ * 4. 使用运行脚本:
+ *    - 继续使用我们创建的run_fx.bat脚本来编译和运行项目
+ *    - 它已经配置了所有必要的JavaFX模块和类路径
+ */ 
